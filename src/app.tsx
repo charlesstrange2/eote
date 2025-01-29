@@ -4,10 +4,10 @@ import Counter from './components/counter';
 import Diamond from './components/diamond';
 import Hexagon from './components/hexagon';
 import Square from './components/square';
-import roll from './utils/roll';
+import roll, { RollResults }  from './utils/roll';
 import './assets/style.css';
 
-const App = () => {
+const App = () : React.JSX.Element => {
   const [green, setGreen] = useState<number>(0);
   const [purple, setPurple] = useState<number>(0);
   const [yellow, setYellow] = useState<number>(0);
@@ -15,13 +15,14 @@ const App = () => {
   const [blue, setBlue] = useState<number>(0);
   const [black, setBlack] = useState<number>(0);
   const [white, setWhite] = useState<number>(0);
-  const [results, setResults] = useState<any>({ result: [], net: '' });
-  const [theme, setTheme] = useState<boolean>('light');
+  const [results, setResults] = useState<RollResults>({ result: [], net: '' });
+  const [theme, setTheme] = useState<string>('light');
 
-  const handleClick = () => {
+  const handleClick = () : void => {
     setResults(roll({ green, purple, yellow, red, blue, black, white }));
   };
-  const handleClear = () => {
+
+  const handleClear = () : void => {
     setGreen(0);
     setPurple(0);
     setYellow(0);
@@ -32,14 +33,14 @@ const App = () => {
     setResults({ result: [], net: '' });
   };
 
-  const toggleTheme = () => {
+  const toggleTheme = () : void => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     localStorage.setItem('theme', newTheme);
     setTheme(newTheme);
   };
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') || theme;
+  useEffect(() : void => {
+    const storedTheme = localStorage.getItem('theme') ?? theme;
     setTheme(storedTheme);
     if (storedTheme === 'light') {
       document.documentElement.classList.remove('dark');
@@ -52,7 +53,7 @@ const App = () => {
 
   return (
     <>
-      <div class='container'>
+      <div className='container'>
         <h1>Star Wars EOTE Dice Roller</h1>
         <p className='intro-text'>
           Welcome to the dice rolling tool for Star Wars Edge of the Empire!
@@ -65,8 +66,8 @@ const App = () => {
         </button>
         <div className={results.net ? `results rolled` : `results`}>
           <p className='symbols'>
-            {results.result.map(res => (
-              <span>{res.symbol}</span>
+            {results.result.map((result) => (
+              <span>{result.symbol}</span>
             ))}
           </p>
           <p>Result: {results.net}</p>

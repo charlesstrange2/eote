@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "parcel index.html -p 1138",
     "build": "parcel build index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier ./src --write"
   },
   "keywords": [],
   "author": "",
@@ -20,14 +21,5 @@
     "@types/react-dom": "^17.0.26",
     "prettier": "^2.5.1",
     "typescript": "^5.7.3"
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "semi": true,
-    "bracketSpacing": true,
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "useTabs": false,
-    "tabWidth": 2
   }
 }

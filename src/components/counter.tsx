@@ -1,6 +1,12 @@
 import React from 'react';
 
-export default ({ label, count, setCount }) => {
+interface CounterProps {
+  label: string;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Counter: React.FC<CounterProps> = ({ label, count, setCount }) => {
   return (
     <div className='counter'>
       <p className='counter-label'>{label}:</p>
@@ -22,3 +28,5 @@ export default ({ label, count, setCount }) => {
     </div>
   );
 };
+
+export default Counter;
