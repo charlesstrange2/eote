@@ -2,28 +2,30 @@ import dice from './dice.json';
 import text from './result-text.json';
 
 export interface Die {
-  symbol: string,
-  primary: number,
-  secondary: number,
-  critical: number,
-  destiny: number
+  symbol: string;
+  primary: number;
+  secondary: number;
+  critical: number;
+  destiny: number;
 }
+
+export type Dice = Record<string, Die[]>;
 
 export interface RollResults {
-  result: Die[],
-  net: string
+  result: Die[];
+  net: string;
 }
 
-export const rollDice = (max: number) : number => {
+export const rollDice = (max: number): number => {
   return Math.floor(Math.random() * max);
 };
 
-export const handleRolls = (type: string, count: number): Die[] => {
+export const handleRolls = (type: keyof typeof dice, count: number): Die[] => {
   const rolledDice: Die[] = [];
-
+  const diceDef = dice[type];
   for (let i = 0; i < count; i++) {
-    const result = rollDice(dice[type].length);
-    rolledDice.push(dice[type][result]);
+    const result = rollDice(diceDef.length);
+    rolledDice.push(diceDef[result]);
   }
 
   return rolledDice;
@@ -32,7 +34,7 @@ export const handleRolls = (type: string, count: number): Die[] => {
 export const getResultText = (
   number: number,
   type: 'primary' | 'secondary' | 'critical' | 'destiny'
-) : string => {
+): string => {
   // If result is positive
   if (number >= 0) {
     // If result is 1, use singular
@@ -50,14 +52,12 @@ export const getNetResults = (results: Die[]) => {
   let critical = 0; // Triumphs & Despairs
   let destiny = 0; // Triumphs & Despairs
 
-  results.forEach(
-    (result: Die) : void => {
-      primary += result.primary;
-      secondary += result.secondary;
-      critical += result.critical;
-      destiny += result.destiny;
-    }
-  );
+  results.forEach((result: Die): void => {
+    primary += result.primary;
+    secondary += result.secondary;
+    critical += result.critical;
+    destiny += result.destiny;
+  });
 
   let text = [];
   if (primary !== 0) text.push(getResultText(primary, 'primary'));
@@ -70,16 +70,24 @@ export const getNetResults = (results: Die[]) => {
 };
 
 interface RollParams {
-  green: number,
-  purple: number,
-  yellow: number
-  red: number,
-  blue: number,
-  black: number,
-  white: number
+  green: number;
+  purple: number;
+  yellow: number;
+  red: number;
+  blue: number;
+  black: number;
+  white: number;
 }
 
-export default ({ green, purple, yellow, red, blue, black, white } : RollParams ) : RollResults => {
+export default ({
+  green,
+  purple,
+  yellow,
+  red,
+  blue,
+  black,
+  white,
+}: RollParams): RollResults => {
   let result: Die[] = [
     ...handleRolls('green', green),
     ...handleRolls('purple', purple),

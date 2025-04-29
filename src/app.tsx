@@ -4,10 +4,10 @@ import Counter from './components/counter';
 import Diamond from './components/diamond';
 import Hexagon from './components/hexagon';
 import Square from './components/square';
-import roll, { RollResults }  from './utils/roll';
+import roll, { RollResults } from './utils/roll';
 import './assets/style.css';
 
-const App = () : React.JSX.Element => {
+const App = (): React.JSX.Element => {
   const [green, setGreen] = useState<number>(0);
   const [purple, setPurple] = useState<number>(0);
   const [yellow, setYellow] = useState<number>(0);
@@ -18,11 +18,11 @@ const App = () : React.JSX.Element => {
   const [results, setResults] = useState<RollResults>({ result: [], net: '' });
   const [theme, setTheme] = useState<string>('light');
 
-  const handleClick = () : void => {
+  const handleClick = (): void => {
     setResults(roll({ green, purple, yellow, red, blue, black, white }));
   };
 
-  const handleClear = () : void => {
+  const handleClear = (): void => {
     setGreen(0);
     setPurple(0);
     setYellow(0);
@@ -33,13 +33,13 @@ const App = () : React.JSX.Element => {
     setResults({ result: [], net: '' });
   };
 
-  const toggleTheme = () : void => {
+  const toggleTheme = (): void => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     localStorage.setItem('theme', newTheme);
     setTheme(newTheme);
   };
 
-  useEffect(() : void => {
+  useEffect((): void => {
     const storedTheme = localStorage.getItem('theme') ?? theme;
     setTheme(storedTheme);
     if (storedTheme === 'light') {
@@ -67,7 +67,7 @@ const App = () : React.JSX.Element => {
         <div className={results.net ? `results rolled` : `results`}>
           <p className='symbols'>
             {results.result.map((result, index) => (
-              <span key={'key_'+index}>{result.symbol}</span>
+              <span key={'key_' + index}>{result.symbol}</span>
             ))}
           </p>
           <p>Result: {results.net}</p>
@@ -102,7 +102,8 @@ const App = () : React.JSX.Element => {
           Made with ❤️ by{' '}
           <a href='https://www.iamtimsmith.com' target='_blank'>
             Tim Smith
-          </a>.
+          </a>
+          .
         </p>
       </footer>
     </>
