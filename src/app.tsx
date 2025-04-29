@@ -66,8 +66,8 @@ const App = () : React.JSX.Element => {
         </button>
         <div className={results.net ? `results rolled` : `results`}>
           <p className='symbols'>
-            {results.result.map((result) => (
-              <span>{result.symbol}</span>
+            {results.result.map((result, index) => (
+              <span key={'key_'+index}>{result.symbol}</span>
             ))}
           </p>
           <p>Result: {results.net}</p>
@@ -102,8 +102,7 @@ const App = () : React.JSX.Element => {
           Made with ❤️ by{' '}
           <a href='https://www.iamtimsmith.com' target='_blank'>
             Tim Smith
-          </a>
-          .
+          </a>.
         </p>
       </footer>
     </>
